@@ -1,0 +1,36 @@
+{
+    "@context": ["https://www.w3.org/2019/wot/td/v1"], 
+    "@type" : "ThingTemplate",
+    "title": "Lock Thing Description",
+    "description" : "Lock",
+    "properties": {
+        "lock_status": {
+            "description" : "current status of the lock (locked|unlocked)",
+            "type": "string",
+            "readOnly": true
+        },
+        "alarm_status": {
+            "description" : "current status of the alarm (triggered|untriggered)",
+            "type": "string",
+            "readOnly": true
+        }
+    },
+    "actions": {
+        "self_lock": {
+            "description" : "Locks or unlocks the lock"
+        },
+        "alarm": {
+            "descrition" : "Controls the triggering of the alarm"
+        }
+    },
+    "events": {
+        "user_message": {
+            "description" : "Sends message to a predetermined app host when the lock is unlocked via password",
+            "data": {"type": "string"}
+        },
+        "alarm_message_intruder" :{
+            "description" : "Sends message to a predetermined app host when the lock is forced to open",
+            "data": {"type": "string"}
+        }
+    }
+}

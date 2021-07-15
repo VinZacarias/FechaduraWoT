@@ -2,6 +2,10 @@
     "@context": ["https://www.w3.org/2019/wot/td/v1"], 
     "@type" : "ThingTemplate",
     "title": "Lock Thing Description",
+    "securityDefinitions": {
+        "basic_sc": {"scheme": "basic", "in":"header"}
+    },
+    "security": ["basic_sc"],
     "description" : "Lock",
     "properties": {
         "lock_status": {

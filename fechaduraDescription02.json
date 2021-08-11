@@ -1,0 +1,68 @@
+{
+    "@context": ["https://www.w3.org/2019/wot/td/v1",
+        {
+            "iot": "http://iotschema.org/"
+        }
+    ],
+    "@type" : ["ThingTemplate", "iot:Lock", "iot:BinarySwitchCapacity"],
+    "title": "Lock Thing Description",
+    "securityDefinitions": {
+        "basic_sc": {"scheme": "basic", "in":"header"}
+    },
+    "security": ["basic_sc"],
+    "description" : "Lock",
+    "properties": {
+        "lock_status": {
+            "description" : "current status of the lock (locked|unlocked)",
+            "@type": ["iot:LockStatus"],
+            "type": "string",
+            "readOnly": true,
+            "forms": [
+                {
+                    "href": "/example/lock/currentStatus",
+                    "op": ["readproperty"],
+                    "contentType": "application/json"
+                }
+            ]
+        },
+        "alarm_status": {
+            "description" : "current status of the alarm (triggered|untriggered)",
+            "@type": ["iot:AlarmStatus"],
+            "type": "string",
+            "readOnly": true,
+            "forms": [
+                {
+                    "href": "/example/lock/alarm/currentStatus",
+                    "op": ["readproperty"],
+                    "contentType": "application/json"
+                }
+            ]
+        }
+    },
+    "actions": {
+        "self_lock": {
+            "description" : "Locks or unlocks the lock",
+            "@type": ["iot:LockMovement"],
+            "input": {
+                "type": "boolean"
+            }
+        },
+        "alarm": {
+            "descrition" : "Controls the triggering of the alarm",
+            "input":{
+                "type": "boolean",
+                "const": false 
+            }
+        }
+    },
+    "events": {
+        "user_message": {
+            "description" : "Sends message to a predetermined app host when the lock is unlocked via password",
+            "data": {"type": "string"}
+        },
+        "alarm_message_intruder" :{
+            "description" : "Sends message to a predetermined app host when the lock is forced to open",
+            "data": {"type": "string"}
+        }
+    }
+}

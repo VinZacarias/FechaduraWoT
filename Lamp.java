@@ -1,4 +1,11 @@
-
+/*
+ 	*Arquivo java que implementa uma lampada seguindo o framework WebThings.
+ 	*Este código é público e fornecido pelo site WebThings, disponível em <https://webthings.io/framework/>. 
+ 	*Algumas modificaçãos foram feitas em relação ao original, porém todo o código foi mantido e somente o que não era objeto de interesse foi colocado em forma de comentário.
+ 	*As funções de ligar e desligar e de segurança quanto a temperatura foram mantidas.
+ 	*As funções de controle de intensidade de luminosidade e de "fading" foram retiradas.
+ 	*Mais informações sobre o código e sobre o framework estão disponíveis no github da implementação da biblioteca java para WebThings, disponível em <https://github.com/WebThingsIO/webthing-java>
+ */
 
 package io.webthings.webthing.example;
 
@@ -16,9 +23,17 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
-public class SingleThing {
+public class Lamp {
+	/*
+	 	* Classe Lamp implementa uma lampada utilizando as bibliotecas de WebThing 
+	 	* Fonte: <https://webthings.io/framework/>
+	*/
     public static Thing makeThing() {
-        Thing thing = new Thing("urn:dev:ops:my-lamp-1234",
+        /*
+         	* método inicializa uma Thing, gerando sua Thing Description.
+         	* No momento somente estão sendo inicializadas as funções de ligar e desligar e de segurança quanto a temperatura.
+        */
+    	Thing thing = new Thing("urn:dev:ops:my-lamp-1234",
                                 "My Lamp",
                                 new JSONArray(Arrays.asList("OnOffSwitch",
                                                             "Light")),
@@ -33,7 +48,7 @@ public class SingleThing {
                                        "on",
                                        new Value(true),
                                        onDescription));
-
+        /*
         JSONObject brightnessDescription = new JSONObject();
         brightnessDescription.put("@type", "BrightnessProperty");
         brightnessDescription.put("title", "Brightness");
@@ -47,7 +62,7 @@ public class SingleThing {
                                        "brightness",
                                        new Value(50),
                                        brightnessDescription));
-
+		
         JSONObject fadeMetadata = new JSONObject();
         JSONObject fadeInput = new JSONObject();
         JSONObject fadeProperties = new JSONObject();
@@ -70,20 +85,20 @@ public class SingleThing {
         fadeInput.put("properties", fadeProperties);
         fadeMetadata.put("input", fadeInput);
         thing.addAvailableAction("fade", fadeMetadata, FadeAction.class);
-
+		*/
         JSONObject overheatedMetadata = new JSONObject();
         overheatedMetadata.put("description",
                                "The lamp has exceeded its safe operating temperature");
         overheatedMetadata.put("type", "number");
         overheatedMetadata.put("unit", "degree celsius");
         thing.addAvailableEvent("overheated", overheatedMetadata);
-
+		
         return thing;
     }
 
     public static void main(String[] args) {
-        Thing thing = makeThing();
-        WebThingServer server;
+        Thing thing = makeThing(); //cria o objeto Thing
+        WebThingServer server; //inicializa o servidor para WebThing
 
         try {
             // If adding more than one thing, use MultipleThings() with a name.
@@ -109,7 +124,7 @@ public class SingleThing {
             super(thing, "overheated", data);
         }
     }
-
+    /*
     public static class FadeAction extends Action {
         public FadeAction(Thing thing, JSONObject input) {
             super(UUID.randomUUID().toString(), thing, "fade", input);
@@ -131,5 +146,6 @@ public class SingleThing {
             }
         }
     }
+    */
 }
 

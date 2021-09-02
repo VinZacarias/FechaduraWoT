@@ -1,0 +1,46 @@
+{
+    "@context": "https://webthings.io/schemas/",
+    "@type": ["Lock", "OpenCloseSwitch"],
+    "id": "https://mywebthingserver.com/things/lock",
+    "title":"My Lock",
+    "description": "A web connected Door Lock",
+    "properties": {
+      "OpenProperty": {
+        "@type": "OpenProperty",
+        "type": "OpenProperty",
+        "title": "Open/Close",
+        "description": "Whether the door is opened or closed",
+        "links": [{"href": "/#DoorSensor"}]
+      },
+      "LockProperty": {
+        "@type": "LockedProperty",
+        "type": "LockedProperty",
+        "title": "Locked/Unlocked",
+        "readOnly": true,
+        "description": "Whether the door is locked or unlocked",
+        "links": [{"href": "/#Lock"}]
+      }
+    },
+    "actions": {
+      "LockAction": {
+        "@type": "LockAction",
+        "title": "Lock",
+        "description": "Locks the door lock",
+        "links": [{"href": "/#LockAction"}]
+      },
+      "UnlockAction": {
+        "@type": "UnlockAction",
+        "title": "Unlock",
+        "description": "Unlocks the door lock",
+        "links": [{"href": "/#UnlockAction"}]
+      }
+    },
+    "events": {
+    },
+    "links": [
+      {
+        "rel": "schemas",
+        "href": "https://webthings.io/schemas/"
+      }
+    ]
+  }
